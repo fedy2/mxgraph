@@ -1094,6 +1094,10 @@ EditorUi.prototype.getCssClassForMarker = function(prefix, shape, marker, fill)
 		{
 			result = 'geSprite geSprite-' + prefix + 'openthin';
 		}
+		else if (marker == mxConstants.ARROW_OPEN_DOUBLE)
+		{
+			result = 'geSprite geSprite-' + prefix + 'opendouble';
+		}
 		else if (marker == mxConstants.ARROW_BLOCK)
 		{
 			result = (fill == '1') ? 'geSprite geSprite-' + prefix + 'block' : 'geSprite geSprite-' + prefix + 'blocktrans';

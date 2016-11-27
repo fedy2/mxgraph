@@ -135,6 +135,54 @@ var mxMarker =
 	
 	mxMarker.addMarker('open', createOpenArrow(2));
 	mxMarker.addMarker('openThin', createOpenArrow(3));
+
+	function createDoubleOpenArrow(widthFactor)
+	{
+		widthFactor = (widthFactor != null) ? widthFactor : 2;
+		
+		return function(canvas, shape, type, pe, unitX, unitY, size, source, sw, filled)
+		{
+			// The angle of the forward facing arrow sides against the x axis is
+			// 26.565 degrees, 1/sin(26.565) = 2.236 / 2 = 1.118 ( / 2 allows for
+			// only half the strokewidth is processed ).
+			var endOffsetX = unitX * sw * 1.118;
+			var endOffsetY = unitY * sw * 1.118;
+
+			var endOffsetX2 = unitX * 6 * sw * 1.118;
+			var endOffsetY2 = unitY * 6 * sw * 1.118;
+
+			unitX = unitX * (size + sw);
+			unitY = unitY * (size + sw);
+			
+			var pt = pe.clone();
+			pt.x -= endOffsetX;
+			pt.y -= endOffsetY;
+			
+			var pt2 = pe.clone();
+			pt2.x -= endOffsetX2;
+			pt2.y -= endOffsetY2;
+
+			pe.x += -endOffsetX * 2;
+			pe.y += -endOffsetY * 2;
+
+			return function()
+			{
+				canvas.begin();
+				canvas.moveTo(pt.x - unitX - unitY / widthFactor, pt.y - unitY + unitX / widthFactor);
+				canvas.lineTo(pt.x, pt.y);
+				canvas.lineTo(pt.x + unitY / widthFactor - unitX, pt.y - unitY - unitX / widthFactor);
+				canvas.stroke();
+
+				canvas.begin();
+				canvas.moveTo(pt2.x - unitX - unitY / widthFactor, pt2.y - unitY + unitX / widthFactor);
+				canvas.lineTo(pt2.x, pt2.y);
+				canvas.lineTo(pt2.x + unitY / widthFactor - unitX, pt2.y - unitY - unitX / widthFactor);
+				canvas.stroke();
+			};
+		}
+	};
+
+	mxMarker.addMarker('openDouble', createDoubleOpenArrow(2));
 	
 	mxMarker.addMarker('oval', function(canvas, shape, type, pe, unitX, unitY, size, source, sw, filled)
 	{

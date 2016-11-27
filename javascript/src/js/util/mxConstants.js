@@ -1972,6 +1972,13 @@
 	ARROW_OPEN_THIN: 'openThin',
 
 	/**
+	 * Variable: ARROW_OPEN_DOUBLE
+	 * 
+	 * Constant for open double arrow markers.
+	 */
+	ARROW_OPEN_DOUBLE: 'openDouble',
+	
+	/**
 	 * Variable: ARROW_OVAL
 	 * 
 	 * Constant for oval arrow markers.
